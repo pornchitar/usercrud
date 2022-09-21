@@ -93,8 +93,9 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", password=" + password + ", role=" + role + ", gender=" + gender + '}';
+        return "User{" + "id=" + id + ", login=" + login + ", name=" + name + ", password=" + password + ", role=" + role + ", gender=" + gender + '}';
     }
+
     
     public static User fromRS(ResultSet rs) {
         User user = new User();

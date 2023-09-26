@@ -75,6 +75,7 @@ public class UserDao implements Dao<User> {
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+            // System.out.println(ex.getMessage());
         }
         return list;
     }

@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class UserPanel extends javax.swing.JPanel {
     private final UserService userService;
-    private final List<User> list;
+    private List<User> list;
     private User editedUser;
     /**
      * Creates new form UserPanel
@@ -164,6 +164,11 @@ public class UserPanel extends javax.swing.JPanel {
 
         btnSave.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnClear.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnClear.setText("Clear");
@@ -347,6 +352,27 @@ public class UserPanel extends javax.swing.JPanel {
         enableForm(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        setFormToObject();
+        enableForm(false);
+        userService.addNew(editedUser);
+        list = userService.getUsers();
+        tblUser.revalidate();
+        tblUser.repaint();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void setFormToObject() {
+        editedUser.setLogin(edtLogin.getText());
+        editedUser.setName(edtName.getText());
+        editedUser.setPassword(new String(edtPassword.getPassword()));
+        if(rbtMale.isSelected()){
+            editedUser.setGender("M");
+        }else{
+            editedUser.setGender("F");
+        }
+        editedUser.setRole(cmbRole.getSelectedIndex());
+    }
+
     private void setObjectToForm() {
         edtLogin.setText(editedUser.getLogin());
         edtName.setText(editedUser.getName());
@@ -358,6 +384,8 @@ public class UserPanel extends javax.swing.JPanel {
         }
         cmbRole.setSelectedIndex(editedUser.getRole());
     }
+    
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -394,6 +422,7 @@ public class UserPanel extends javax.swing.JPanel {
         rbtMale.setEnabled(status);
         rbtFemale.setEnabled(status);
         cmbRole.setEnabled(status);
+        edtLogin.requestFocus();
     }
     
 }

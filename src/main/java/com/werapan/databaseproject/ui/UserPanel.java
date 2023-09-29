@@ -469,6 +469,13 @@ public class UserPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void enableForm(boolean status){
+        if(status == false){
+            edtLogin.setText("");
+            edtName.setText("");
+            edtPassword.setText("");
+            rbtMale.setSelected(true);
+            cmbRole.setSelectedIndex(0);
+        }
         edtLogin.setEnabled(status);
         edtName.setEnabled(status);
         edtPassword.setEnabled(status);

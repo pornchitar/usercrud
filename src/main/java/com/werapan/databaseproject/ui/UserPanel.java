@@ -16,6 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class UserPanel extends javax.swing.JPanel {
     private final UserService userService;
     private final List<User> list;
+    private User editedUser;
     /**
      * Creates new form UserPanel
      */
@@ -62,6 +63,9 @@ public class UserPanel extends javax.swing.JPanel {
                 }
             }
         });
+        
+        enableForm(false);
+        
     }
 
     /**
@@ -256,6 +260,11 @@ public class UserPanel extends javax.swing.JPanel {
 
         btnAdd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnEdit.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnEdit.setText("Edit");
@@ -332,6 +341,24 @@ public class UserPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtMaleActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        editedUser = new User();
+        setObjectToForm();
+        enableForm(true);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void setObjectToForm() {
+        edtLogin.setText(editedUser.getLogin());
+        edtName.setText(editedUser.getName());
+        edtPassword.setText(editedUser.getPassword());
+        if(editedUser.getGender().equals("M")){
+            rbtMale.setSelected(true);
+        }else{
+            rbtFemale.setSelected(true);
+        }
+        cmbRole.setSelectedIndex(editedUser.getRole());
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -357,4 +384,18 @@ public class UserPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbtMale;
     private javax.swing.JTable tblUser;
     // End of variables declaration//GEN-END:variables
+
+    private void enableForm(boolean status){
+        edtLogin.setEnabled(status);
+        edtName.setEnabled(status);
+        edtPassword.setEnabled(status);
+        btnSave.setEnabled(status);
+        btnClear.setEnabled(status);
+        rbtMale.setEnabled(status);
+        rbtFemale.setEnabled(status);
+        cmbRole.setEnabled(status);
+    }
+    
 }
+
+
